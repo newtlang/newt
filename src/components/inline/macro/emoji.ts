@@ -11,6 +11,6 @@ export default class Emoji extends Macro {
   };
 
   process(): string {
-    return Emoji.emojiMap[this.raw] || this.raw;
+    return Emoji.emojiMap[this.input] || this.input;
   }
 }

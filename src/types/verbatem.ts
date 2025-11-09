@@ -10,7 +10,7 @@ export default abstract class Verbatem extends Macro {
   abstract end(): string;
 
   process(): string {
-    return `${this.start()}${this.raw}${this.end()}`;
+    return `${this.start()}${this.input}${this.end()}`;
   }
 }
 
@@ -34,7 +34,7 @@ Deno.test("DefaultVerbatem class should have correct static properties", () => {
 
 Deno.test("DefaultVerbatem process method should return correct string", () => {
   const defaultVerbatem = new DefaultVerbatem("","");
-  defaultVerbatem.raw = "example content";
+  defaultVerbatem.input = "example content";
   assertEquals(defaultVerbatem.process(), "<!!!!example content!!!!>");
 });
 

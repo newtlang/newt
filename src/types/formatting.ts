@@ -7,7 +7,7 @@ import Verbatem from "./verbatem.ts";
 export default abstract class Formatting extends Verbatem {
 
   override process(): string {
-    switch (this.raw) {
+    switch (this.input) {
       case "start":
       return this.start();
       case "end":

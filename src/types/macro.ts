@@ -1,15 +1,20 @@
 import { assertEquals } from "@std/assert/equals";
 
+export type tMacro = {
+  name: string;
+  args: string;
+  input: string;
+};
 
 export abstract class Macro {
   static name: string;
 
   args: Map<string, string>;
-  raw: string;
+  input: string;
 
-  constructor(args: string, raw: string) {
+  constructor(args: string, input: string) {
     this.args = new Map(); // TODO: parse args to map
-    this.raw = raw ?? ""
+    this.input = input ?? ""
   }
 
   abstract process(): string;
