@@ -19,7 +19,7 @@ import { assertEquals } from "@std/assert/equals";
 
 
 
-export default function arg_parse(data: string): Map<string, string> {
+export default function parse_margs(data: string): Map<string, string> {
   const result = new Map<string, string>();
 
   let start = 0;
@@ -89,50 +89,50 @@ export default function arg_parse(data: string): Map<string, string> {
 }
 
 
-Deno.test("arg_parse - single key-value pair", () => {
+Deno.test("parse_margs - single key-value pair", () => {
   const input = `arg1="value1"`;
   const expected = new Map([["arg1", "value1"]]);
-  const result = arg_parse(input);
+  const result = parse_margs(input);
   assertEquals(result, expected);
 });
 
-Deno.test("arg_parse - multiple key-value pairs", () => {
+Deno.test("parse_margs - multiple key-value pairs", () => {
   const input = `arg1="value1", arg2="value2", arg3="value3"`;
   const expected = new Map([
     ["arg1", "value1"],
     ["arg2", "value2"],
     ["arg3", "value3"],
   ]);
-  const result = arg_parse(input);
+  const result = parse_margs(input);
   assertEquals(result, expected);
 });
 
-Deno.test("arg_parse - handles spaces around equals sign", () => {
+Deno.test("parse_margs - handles spaces around equals sign", () => {
   const input = `arg1 = "value1", arg2= "value2", arg3 = "value3"`;
   const expected = new Map([
     ["arg1", "value1"],
     ["arg2", "value2"],
     ["arg3", "value3"],
   ]);
-  const result = arg_parse(input);
+  const result = parse_margs(input);
   assertEquals(result, expected);
 });
 
-Deno.test("arg_parse - empty input", () => {
+Deno.test("parse_margs - empty input", () => {
   const input = ``;
   const expected = new Map();
-  const result = arg_parse(input);
+  const result = parse_margs(input);
   assertEquals(result, expected);
 });
 
-Deno.test("arg_parse - no matches", () => {
+Deno.test("parse_margs - no matches", () => {
   const input = `invalid input without key-value pairs`;
   const expected = new Map();
-  const result = arg_parse(input);
+  const result = parse_margs(input);
   assertEquals(result, expected);
 });
 
-Deno.test("arg_parse - handles special characters in values", () => {
+Deno.test("parse_margs - handles special characters in values", () => {
   const input = `arg1="value with spaces", arg2="value_with_underscores", arg3="value-with-dashes", arg4="value with \\\"escaped\\\" quotes"`;
   const expected = new Map([
     ["arg1", "value with spaces"],
@@ -140,16 +140,16 @@ Deno.test("arg_parse - handles special characters in values", () => {
     ["arg3", "value-with-dashes"],
     ["arg4", "value with \"escaped\" quotes"]
   ]);
-  const result = arg_parse(input);
+  const result = parse_margs(input);
   assertEquals(result, expected);
 });
 
-Deno.test("arg_parse - ignores invalid key-value pairs", () => {
+Deno.test("parse_margs - ignores invalid key-value pairs", () => {
   const input = `arg1="value1", invalidPair, arg2="value2"`;
   const expected = new Map([
     ["arg1", "value1"],
     ["arg2", "value2"],
   ]);
-  const result = arg_parse(input);
+  const result = parse_margs(input);
   assertEquals(result, expected);
 });

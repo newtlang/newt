@@ -32,7 +32,7 @@ import { tMacro } from "../types/macro.ts";
 //   return { value, end: end < data.length && data[end] === closeChar ? end + 1 : end };
 // }
 
-export default function macro_parse(data: string): { macro: tMacro, length: number } {
+export default function parse_macro(data: string): { macro: tMacro, length: number } {
   // define start and head indexes
   let start = 0;
   let head = 0;
@@ -98,81 +98,81 @@ export default function macro_parse(data: string): { macro: tMacro, length: numb
   return { macro, length: head };
 }
 
-Deno.test("macro_parse - basic macro name", () => {
+Deno.test("parse_macro - basic macro name", () => {
   const data = "\\macroName";
-  const result = macro_parse(data);
+  const result = parse_macro(data);
   assertEquals(result.macro.name, "macroName");
   assertEquals(result.macro.args, "");
   assertEquals(result.macro.input, "");
   assertEquals(result.length, data.length);
 });
 
-Deno.test("macro_parse - macro with arguments", () => {
+Deno.test("parse_macro - macro with arguments", () => {
   const data = "\\macroName(arg1, arg2)";
-  const result = macro_parse(data);
+  const result = parse_macro(data);
   assertEquals(result.macro.name, "macroName");
   assertEquals(result.macro.args, "arg1, arg2");
   assertEquals(result.macro.input, "");
   assertEquals(result.length, data.length);
 });
 
-Deno.test("macro_parse - macro with input", () => {
+Deno.test("parse_macro - macro with input", () => {
   const data = "\\macroName{inputData}";
-  const result = macro_parse(data);
+  const result = parse_macro(data);
   assertEquals(result.macro.name, "macroName");
   assertEquals(result.macro.args, "");
   assertEquals(result.macro.input, "inputData");
   assertEquals(result.length, data.length);
 });
 
-Deno.test("macro_parse - macro with arguments and input", () => {
+Deno.test("parse_macro - macro with arguments and input", () => {
   const data = "\\macroName(arg1, arg2){inputData}";
-  const result = macro_parse(data);
+  const result = parse_macro(data);
   assertEquals(result.macro.name, "macroName");
   assertEquals(result.macro.args, "arg1, arg2");
   assertEquals(result.macro.input, "inputData");
   assertEquals(result.length, data.length);
 });
 
-Deno.test("macro_parse - implicit closing for arguments", () => {
+Deno.test("parse_macro - implicit closing for arguments", () => {
   const data = "\\macroName(arg1, arg2";
-  const result = macro_parse(data);
+  const result = parse_macro(data);
   assertEquals(result.macro.name, "macroName");
   assertEquals(result.macro.args, "arg1, arg2");
   assertEquals(result.macro.input, "");
   assertEquals(result.length, data.length);
 });
 
-Deno.test("macro_parse - implicit closing for input", () => {
+Deno.test("parse_macro - implicit closing for input", () => {
   const data = "\\macroName{inputData";
-  const result = macro_parse(data);
+  const result = parse_macro(data);
   assertEquals(result.macro.name, "macroName");
   assertEquals(result.macro.args, "");
   assertEquals(result.macro.input, "inputData");
   assertEquals(result.length, data.length);
 });
 
-Deno.test("macro_parse - implicit closing for arguments and input", () => {
+Deno.test("parse_macro - implicit closing for arguments and input", () => {
   const data = "\\macroName(arg1, arg2{inputData";
-  const result = macro_parse(data);
+  const result = parse_macro(data);
   assertEquals(result.macro.name, "macroName");
   assertEquals(result.macro.args, "arg1, arg2{inputData");
   assertEquals(result.macro.input, "");
   assertEquals(result.length, data.length);
 });
 
-Deno.test("macro_parse - testing close bracket in arg quotes", () => {
+Deno.test("parse_macro - testing close bracket in arg quotes", () => {
   const data = "\\macroName(arg1 = \"}\")";
-  const result = macro_parse(data);
+  const result = parse_macro(data);
   assertEquals(result.macro.name, "macroName");
   assertEquals(result.macro.args, "arg1 = \"}\"");
   assertEquals(result.macro.input, "");
   assertEquals(result.length, data.length);
 });
 
-Deno.test("macro_parse - testing escaped close brace in input", () => {
+Deno.test("parse_macro - testing escaped close brace in input", () => {
   const data = "\\macroName{\\}}";
-  const result = macro_parse(data);
+  const result = parse_macro(data);
   assertEquals(result.macro.name, "macroName");
   assertEquals(result.macro.args, "");
   assertEquals(result.macro.input, "}");
