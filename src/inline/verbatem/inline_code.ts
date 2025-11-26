@@ -1,4 +1,4 @@
-import Verbatem from "../../../types/verbatem.ts";
+import Verbatem from "../verbatem.ts";
 
 export default class InlineCode extends Verbatem {
   static override name = "inline_code";

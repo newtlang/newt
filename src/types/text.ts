@@ -8,6 +8,8 @@ type TextItem = {
 
 export default class Text {
 
-  public content: TextItem[] = []
+  public content: TextItem[] = [];
+
+  
 
 }

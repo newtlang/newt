@@ -1,4 +1,4 @@
-import { Macro } from "../../../types/macro.ts";
+import { Macro } from "../macro.ts";
 
 export default class Emoji extends Macro {
   static override name = "emoji";

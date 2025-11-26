@@ -12,7 +12,7 @@
  */
 
 import { assertEquals } from "@std/assert/equals";
-import { tMacro } from "../types/macro.ts";
+import { tMacro } from "../../inline/macro.ts";
 
 // function walkUntil(data: string, start: number, stopChars: Set<string>): number {
 //   let head = start;

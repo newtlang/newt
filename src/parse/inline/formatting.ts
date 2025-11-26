@@ -3,17 +3,15 @@ import { assertEquals } from "@std/assert/equals";
 
 export default function parse_formatting(data: string, markers: Set<string>): { marker: string, length: number } {
   
+  if (data.length === 0 || markers.size === 0) {
+    return { marker: "", length: 0 };
+  }
+
   // create a set of possible marker characters
-  const marker_characters = new Set([...markers].flatMap(marker => marker.split("")));
+  // const marker_characters = new Set([...markers].flatMap(marker => marker.split("")));
 
   // determine the length of the buffer
-  let bufferLength = 0;
-
-  // calculate the buffer length
-  for (const char of data) {
-    if (marker_characters.has(char)) { bufferLength++; }
-    else { break; }
-  }
+  const bufferLength = Math.max(...[...markers].map(marker => marker.length));
 
   // slice the buffer from the data
   const buffer = data.slice(0, bufferLength);
