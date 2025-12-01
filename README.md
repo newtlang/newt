@@ -8,6 +8,12 @@
 
 TODO
 
+### Merging
+
+`main` is our main branch, it contains the latest release. Features are staged in the `develop` branch before merging into main
+
+`develop` is our staging branch, all changes must be merged and tested against develop before they can be merged. These merges should be squash-merged. 
+
 ## Install
 
 TODO
