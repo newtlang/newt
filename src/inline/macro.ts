@@ -20,7 +20,7 @@ export abstract class Macro {
   abstract process(): string;
 }
 
-export class DefaultMacro extends Macro {
+class DefaultMacro extends Macro {
   static override name: string = "default_macro";
 
   process(): string {

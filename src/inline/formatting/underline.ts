@@ -1,4 +1,4 @@
-import Formatting from "../../../types/formatting.ts";
+import Formatting from "../formatting.ts";
 
 export default class Underline extends Formatting {
   static override name = "underline";

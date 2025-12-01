@@ -1,4 +1,4 @@
-import { Macro } from "./macro.ts";
+import { Macro } from "../inline/macro.ts";
 
 type TextItem = {
   text: string,

@@ -1,4 +1,5 @@
-import Formatting from "../../../types/formatting.ts";
+import Formatting from "../formatting.ts";
+
 
 export default class Bold extends Formatting {
   static override marker = "**";
